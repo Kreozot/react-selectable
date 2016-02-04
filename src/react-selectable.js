@@ -83,7 +83,7 @@ var Selectable = React.createClass({
       persist: this.props.dontClearSelection,
       boxWidth: 0,
       boxHeight: 0,
-      selectedItems: []
+      selectedItems: this.props.selectedItems
     };
   },
 
@@ -98,7 +98,8 @@ var Selectable = React.createClass({
       distance: 0,
       tolerance: 0,
       globalMouse: false,
-      disableSingleSelection: false
+      disableSingleSelection: false,
+      selectedItems: []
     };
   },
 
@@ -153,7 +154,7 @@ var Selectable = React.createClass({
           return cloneWithProps(child, {
             key: child.key || i,
             ref: 'selectable_'+child.key,
-            selected: this.state.selectedItems.indexOf(child.key) > -1
+            selected: this.props.selectedItems.indexOf(child.key) > -1
           })
         }.bind(this))}
       </this.props.component>
@@ -266,7 +267,7 @@ var Selectable = React.createClass({
    * @param  {int} y
    */
   _selectElement: function (x, y) {
-    var currentItems = this.state.selectedItems,
+    var currentItems = this.props.selectedItems,
       index;
 
     React.Children.forEach(this.props.children, function (child) {
@@ -315,7 +316,7 @@ var Selectable = React.createClass({
    * Selects multiple children given x/y coords of the mouse
    */
   _selectElements: function (e) {
-    var currentItems = this.state.selectedItems,
+    var currentItems = this.props.selectedItems,
       index;
 
     this._mouseDownData = null;
